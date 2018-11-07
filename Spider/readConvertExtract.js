@@ -1,4 +1,4 @@
-var html = `此处定义逐行读取的文件内容`;
+var html = `此处定义读取的文件内容`;
 var flag;
 var temp = '';
 var result = [];
