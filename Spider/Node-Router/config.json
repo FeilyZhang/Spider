@@ -1,0 +1,8 @@
+{
+  "map1" : {
+    "url" : "/haoyue",
+    "func" : "gets",
+    "method" : "get",
+    "des" : "des111"
+  }
+}
