@@ -1,0 +1,61 @@
+<html>
+<head>
+</head>
+<body>
+<script>
+function loadSRCDoc(url) {
+  var xmlhttp;
+  var html;
+  if (window.XMLHttpRequest) {
+    xmlhttp = new XMLHttpRequest();
+  } else {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      html = xmlhttp.responseText;
+      readConvertExtract(html);
+    }
+  }
+  xmlhttp.open("GET",'http://localhost:3000/haoyue?' + url,true);
+  xmlhttp.send();
+}
+var readConvertExtract = function(html) {
+  var flag;
+  var temp = '';
+  var result = [];
+  var htmlArray = [];
+  for (var i in html) {
+    htmlArray.push(html[i]);
+  }
+  for (var i = 0; i < htmlArray.length; i++) {
+    if (' ' === htmlArray[i] || '\n' === htmlArray[i] || '\t' === htmlArray[i]) {
+      htmlArray.splice(i, 1);
+      i --;
+    }
+  }
+
+  for (var i = 0; i < htmlArray.length - 1; i++) {
+    if (htmlArray[i] === '>') {
+      if (htmlArray[i + 1] === '<') {
+        continue;
+      } else {
+        flag = i + 1;
+        while (htmlArray[flag] != '<') {
+          temp += htmlArray[flag++];
+        }
+        result.push(temp);
+        temp = '';
+      }
+    }
+  }
+  document.write('<ul>');
+  for (var d of result) {
+    document.write('<li>' + d + '</li>');
+  }
+  document.write('</ul>');
+}
+loadSRCDoc('host=www.rsks.czs.gov.cn&path=&protocol=http');
+</script>
+</body>
+</html>
